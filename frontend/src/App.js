@@ -8,6 +8,7 @@ import { Register } from './component/resgister/register';
 import { Admin } from './component/admin/admin';
 import { Private } from './privaterouter/private';
 import { Navbar } from './component/Navbar/navbar';
+import { Userpage } from './component/user/user';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Private><Admin /></Private>} />
+        <Route path="/user" element={<Userpage />} />
       </Routes>
      
         

@@ -29,8 +29,8 @@ export const Admin = () => {
                     return navigate("/login", { replace: true })
                 }
                 else {
-                    alert("your are not admin")
-                    return navigate("/login", { replace: true })
+                   
+                    return navigate("/user", { replace: true })
                 }
             })
     }, [])
