@@ -1,0 +1,25 @@
+.navcont{
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+background-color: #282C34;
+top: 0;
+}
+.navchild{
+display: flex;
+justify-content: space-between;
+height: 50px;
+text-align: center;
+color: white;
+font: 20px;
+width: 50%;
+font-size: 20px;
+line-height: 40px;
+}
+
+.navchild>div:hover{
+    color: #FF426F;
+}

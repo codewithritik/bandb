@@ -8,7 +8,7 @@ export const Private = ( {children} ) => {
     const [cookies, setCookie, removeCookie] = useCookies(['Bearer']);
     const [auth, setauth]= useState(false)
     useEffect(() => {
-        axios.post("http://localhost:5000/admin", cookies)
+        axios.post("https://bandbserver.herokuapp.com/admin", cookies)
             .then((res) => {
                 if (res.status == 200) {
                     setauth(true)

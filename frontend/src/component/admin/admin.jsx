@@ -16,7 +16,7 @@ export const Admin = () => {
 
 
     useEffect(() => {
-        axios.post("http://localhost:5000/admin", cookies)
+        axios.post("https://bandbserver.herokuapp.com/admin", cookies)
             .then((res) => {
                 setloadin(false)
                 if (res.status == 200) {

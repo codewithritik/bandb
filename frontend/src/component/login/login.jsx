@@ -25,8 +25,7 @@ export const Login  = ()=> {
 
     const Handlesubmit = (e) => {
         e.preventDefault()
-    console.log("hhd")
-        axios.post("http://localhost:5000/login", logData)
+        axios.post("https://bandbserver.herokuapp.com/login", logData)
             .then((res) => {
                 const token = res.data.token
                 setcookies(token)

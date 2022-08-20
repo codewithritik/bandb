@@ -27,14 +27,16 @@ export const Register =()=> {
 
     const Handlesubmit = (e) => {
         e.preventDefault()
-        console.log("ss")
+ 
         axios.post("https://bandbserver.herokuapp.com/register", regData)
             .then((res) => {
                 if (res.status == 201) {
                     navigate("/login", { replace: true })
-               }
+                }
+           
             })
             .catch((err) => {
+                console.log(err)
                 let allerror = (err.response.data.errors)
                 const { msg } = allerror[0]
                 alert(msg)
@@ -80,7 +82,7 @@ export const Register =()=> {
                                 placeholder="Name"
                                 _focus={{ border: "2px solid #56E4ED"}}
                                 type="text"
-                                name="Name"
+                                name="name"
                                 bg={'gray.100'}
                                 border={0}
                                 color={'black'}
