@@ -1,23 +1,77 @@
+import { Heading, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import axios from "axios"
+import { useState } from "react";
 import { useEffect } from "react"
+import { useCookies } from 'react-cookie';
+import { useNavigate } from "react-router-dom";
+import { LoadingComponet } from "../loading/loading";
+import "./admin.css"
+
+
 export const Admin = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(['Bearer']);
+    const [userData, setuserData] = useState([])
+    const [loading, setloadin] = useState(true)
+    const navigate = useNavigate()
+
+
     useEffect(() => {
-        axios.get("https://bandbserver.herokuapp.com/admin")
+        axios.post("http://localhost:5000/admin", cookies)
             .then((res) => {
-                console.log(res)
-                
-                // if (res.status == 200) {
-                //     navigate("/admin", { replace: true })
-                // }
+                setloadin(false)
+                if (res.status == 200) {
+                    setuserData(res.data)
+                }
             })
             .catch((err) => {
-                console.log(err)
-                let allerror = (err.response.data)
-
-                alert(allerror)
+                if (err.status == 500) {
+                    alert("your are not login")
+                    return navigate("/login", { replace: true })
+                }
+                else {
+                    alert("your are not admin")
+                    return navigate("/login", { replace: true })
+                }
             })
+    }, [])
+
+
+    return <div>
+        {loading && <LoadingComponet />}
+        <div >
+            <Heading as='h2' size='2xl' marginBottom={"20px"} paddingTop="60px">Welcome admin</Heading>
+        </div>
+        <div  className="table">
+        <TableContainer >
+            <Table  variant='striped' colorScheme='blue'>
+                <TableCaption></TableCaption>
+                <Thead>
+                    <Tr>
+                        <Th>Name</Th>
+                        <Th>Email</Th>
+                        <Th isNumeric>role</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {userData?.map((e) => {
+                        return <Tr key={e._id}>
+                            <Td>{e.name}</Td>
+                            <Td>{ e.email}</Td>
+                            <Td isNumeric>{ e.role}</Td>
+                        </Tr>
+                    })}
+                   
+                </Tbody>
+            </Table>
+        </TableContainer>
+        </div>
+
+    </div>
+
+   
     
 
         
-    },[])
+  
+
 }

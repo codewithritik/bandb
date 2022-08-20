@@ -26,9 +26,11 @@ export const Login  = ()=> {
     const Handlesubmit = (e) => {
         e.preventDefault()
     console.log("hhd")
-        axios.post("https://bandbserver.herokuapp.com/login", logData)
+        axios.post("http://localhost:5000/login", logData)
             .then((res) => {
-            
+                const token = res.data.token
+                setcookies(token)
+
                 if (res.status == 200) {
                     navigate("/admin", { replace: true })
                 }
@@ -56,7 +58,7 @@ export const Login  = ()=> {
                         color={'gray.800'}
                         lineHeight={1.1}
                         fontSize={{ base: '2xl', sm: '3xl', md: '4xl' }}>
-                        Login
+                        Welcome
                         <Text
                             as={'span'}
                             bgGradient="linear(to-r, red.400,#FF426F)"
@@ -136,4 +138,10 @@ export const Login  = ()=> {
 
 
     );
+}
+
+const setcookies = (token) => {
+    
+
+    document.cookie = "Bearer" + "=" + token + "; path=/";
 }

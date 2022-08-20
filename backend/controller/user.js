@@ -96,11 +96,11 @@ router.post("/login", async (req, res) => {
 
             if (match) {
                 let token = generateToken({ _id: userdetails._id, email: userdetails.email, role: userdetails.role }, );       
-                res.cookie('Bearer', token, {
-                    expires: new Date(Date.now() + 258920000),
-                    httpOnly:true
-                })
-                return res.status(200).send(userdetails)
+                // res.cookie('Bearer', token, {
+                //     expires: new Date(Date.now() + 258920000),
+                //     httpOnly:true
+                // })
+                return res.status(200).send({ userdetails, token })
             }
             else {
 
@@ -116,21 +116,20 @@ router.post("/login", async (req, res) => {
 
 
 //for admin
-router.get("/admin", async(req, res) => {
-
-  
+router.post("/admin", async(req, res) => { 
     try {
-        const token = req.cookies.Bearer
+
+        const token = req.body.Bearer
         
         if (!token) {
-            return res.status(500).send({ message: "please login again" })
+            return res.status(500).send( "please login again" )
         }
 
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
        
        
         if (decoded.user.role != "admin"  ) {
-            return res.status(401).send({ message: "you are not authorised"})
+            return res.status(401).send( "you are not authorised")
         }
 
 
